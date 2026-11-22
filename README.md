@@ -294,3 +294,41 @@ Antes de desplegar, define `PORT`, `MONGO_URI` y, si aplica, los tokens de Teleg
 - ⏳ Frontend Angular, aplicación móvil y despliegue remoto: entregas posteriores.
 
 Las decisiones de arquitectura y los problemas resueltos están documentados en [`memory/`](memory/).
+
+---
+
+## 11. Documentos, Postman y evidencia
+
+### 11.1 Documentos del proyecto
+
+Cada documento está disponible en **PDF** (para subir como archivo) y en **Markdown** (para dar un enlace).
+
+| # | Documento | PDF | Markdown |
+|---|---|---|---|
+| 1 | Documento principal | [PDF](documentos/01-documento-principal.pdf) | [MD](documentos/01-documento-principal.md) |
+| 2 | Estudio e investigación | [PDF](documentos/02-estudio-investigacion.pdf) | [MD](documentos/02-estudio-investigacion.md) |
+| 3 | Requerimientos y casos de uso | [PDF](documentos/03-requerimientos-casos-uso.pdf) | [MD](documentos/03-requerimientos-casos-uso.md) |
+| 4 | Arquitectura y modelo de datos | [PDF](documentos/04-arquitectura-modelo-datos.pdf) | [MD](documentos/04-arquitectura-modelo-datos.md) |
+| 5 | Planificación y riesgos | [PDF](documentos/05-planificacion-riesgos.pdf) | [MD](documentos/05-planificacion-riesgos.md) |
+
+Índice e instrucciones de regeneración: [`documentos/README.md`](documentos/README.md).
+
+Para regenerar los cinco PDF y sus versiones Markdown desde la raíz:
+
+```powershell
+python projects\backend\scripts\generate_documentos.py
+```
+
+Requiere Python con `reportlab` instalado. El contenido se define una sola vez en el script, así que ambos formatos siempre coinciden.
+
+### 11.2 Colección de Postman y evidencia
+
+- Colección importable: [`postman/SolarParaguana.postman_collection.json`](postman/SolarParaguana.postman_collection.json) — 14 peticiones con pruebas automáticas.
+- Evidencia de ejecución: [`evidence/README.md`](evidence/README.md) y [`evidence/smoke-test-result.txt`](evidence/smoke-test-result.txt) — **15/15 pruebas correctas**.
+- Respuestas completas: [`evidence/respuestas/`](evidence/respuestas/).
+
+Para regenerar la evidencia:
+
+```powershell
+node projects\backend\scripts\smoke-test.mjs
+```
