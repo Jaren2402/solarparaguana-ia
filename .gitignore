@@ -1,0 +1,14 @@
+# Dependencias y artefactos generados
+node_modules/
+dist/
+.angular/
+*.log
+
+# Secretos: nunca entregar ni versionar
+.env
+.env.*
+!.env.example
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
