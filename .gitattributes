@@ -1,0 +1,7 @@
+# Archivos binarios: evitar cualquier conversion de saltos de linea
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.apk binary
