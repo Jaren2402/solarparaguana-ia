@@ -1,0 +1,54 @@
+{
+  "herramienta": "consultar_stock",
+  "resultado": [
+    {
+      "_id": "6b02fcc293f01183fccc1616",
+      "sku": "PAN-JINKO-550-CORO",
+      "__v": 0,
+      "capacidad": {
+        "valor": 550,
+        "unidad": "Wp"
+      },
+      "categoria": "panel",
+      "createdAt": "2026-11-22T14:31:30.305Z",
+      "marca": "Jinko Solar",
+      "modelo": "Tiger Neo N-Type 550 W",
+      "precio": {
+        "monto": 165,
+        "moneda": "USD"
+      },
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 120
+      },
+      "updatedAt": "2026-11-22T14:31:30.305Z",
+      "vigente": true,
+      "voltajeNominalV": 41.5
+    },
+    {
+      "_id": "6b02fcc293f01183fccc1617",
+      "sku": "PAN-JINKO-550-PFJ",
+      "__v": 0,
+      "capacidad": {
+        "valor": 550,
+        "unidad": "Wp"
+      },
+      "categoria": "panel",
+      "createdAt": "2026-11-22T14:31:30.305Z",
+      "marca": "Jinko Solar",
+      "modelo": "Tiger Neo N-Type 550 W",
+      "precio": {
+        "monto": 168,
+        "moneda": "USD"
+      },
+      "stock": {
+        "almacen": "Punto Fijo",
+        "disponible": 86
+      },
+      "updatedAt": "2026-11-22T14:31:30.305Z",
+      "vigente": true,
+      "voltajeNominalV": 41.5
+    }
+  ],
+  "mensajeTelegram": "Hay 2 referencias disponibles en los almacenes locales."
+}

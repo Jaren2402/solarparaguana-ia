@@ -34,7 +34,7 @@ Copia la plantilla de entorno y ajústala:
 copy .env.example .env
 ```
 
-Contenido de `.env`:
+Contenido de `.env.example` (cópialo tal cual a `.env`):
 
 ```ini
 PORT=18512

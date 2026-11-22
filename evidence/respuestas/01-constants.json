@@ -1,0 +1,13 @@
+{
+  "hsp": 6,
+  "eficienciaGlobal": 0.8,
+  "factorSeguridadInversor": 1.25,
+  "panelReferenciaWp": 550,
+  "factorArranqueMotor": 3,
+  "umbralConfianzaOCR": 0.85,
+  "parametrosPorDefecto": {
+    "factorPotencia": 0.9,
+    "autonomiaDias": 1,
+    "voltajeBancoV": 48
+  }
+}

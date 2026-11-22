@@ -1,0 +1,240 @@
+{
+  "info": {
+    "name": "SolarParaguaná IA — Backend",
+    "description": "Colección de pruebas del backend SolarParaguaná IA (Sprint 1). Importar en Postman. La variable baseUrl apunta al servidor local por defecto; cámbiala por la URL desplegada cuando exista.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://127.0.0.1:18512" },
+    { "key": "calculoId", "value": "" },
+    { "key": "ocrId", "value": "" },
+    { "key": "imagenPath", "value": "postman/fixtures/etiqueta-ejemplo.png" }
+  ],
+  "item": [
+    {
+      "name": "01 Constantes e inventario",
+      "item": [
+        {
+          "name": "GET /api/energy/constants",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/energy/constants", "host": ["{{baseUrl}}"], "path": ["api", "energy", "constants"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('HSP es 6.0', function () { pm.expect(pm.response.json().hsp).to.eql(6); });"
+          ] } }]
+        },
+        {
+          "name": "GET /api/inventory",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/inventory", "host": ["{{baseUrl}}"], "path": ["api", "inventory"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('Hay 16 equipos', function () { pm.expect(pm.response.json().items.length).to.eql(16); });"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "02 Cálculo y cotización",
+      "item": [
+        {
+          "name": "POST /api/energy/calculate (equipos)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"origen\": \"MANUAL\",\n  \"equipos\": [\n    { \"potenciaW\": 150, \"horasDia\": 24, \"voltajeV\": 120, \"tipo\": \"GENERAL\" },\n    { \"potenciaW\": 1200, \"horasDia\": 6, \"voltajeV\": 120, \"tipo\": \"GENERAL\" },\n    { \"potenciaW\": 750, \"horasDia\": 2, \"voltajeV\": 120, \"tipo\": \"MOTOR\" }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/api/energy/calculate", "host": ["{{baseUrl}}"], "path": ["api", "energy", "calculate"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "var j = pm.response.json();",
+            "pm.collectionVariables.set('calculoId', j.id);",
+            "pm.test('Bloque calculation presente', function () { pm.expect(j.calculation).to.have.property('totalPanels'); });",
+            "pm.test('5 paneles de 550 W', function () { pm.expect(j.calculation.totalPanels).to.eql(5); });"
+          ] } }]
+        },
+        {
+          "name": "POST /api/solar/calculate (alias Manual Maestro)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"origen\": \"MANUAL\",\n  \"equipos\": [\n    { \"potenciaW\": 150, \"horasDia\": 24, \"voltajeV\": 120, \"tipo\": \"GENERAL\" },\n    { \"potenciaW\": 1200, \"horasDia\": 6, \"voltajeV\": 120, \"tipo\": \"GENERAL\" },\n    { \"potenciaW\": 750, \"horasDia\": 2, \"voltajeV\": 120, \"tipo\": \"MOTOR\" }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/api/solar/calculate", "host": ["{{baseUrl}}"], "path": ["api", "solar", "calculate"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('status ok', function () { pm.expect(pm.response.json().status).to.eql('ok'); });"
+          ] } }]
+        },
+        {
+          "name": "POST /api/solar/quote",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"calculoId\": \"{{calculoId}}\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/solar/quote", "host": ["{{baseUrl}}"], "path": ["api", "solar", "quote"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 201', function () { pm.response.to.have.status(201); });",
+            "pm.test('Presupuesto en USD', function () { pm.expect(pm.response.json().presupuesto.moneda).to.eql('USD'); });"
+          ] } }]
+        },
+        {
+          "name": "POST /api/energy/calculate (desde factura)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"origen\": \"MANUAL\",\n  \"consumoMensualKWh\": 300,\n  \"diasDelMes\": 30,\n  \"cargaPicoKW\": 5\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/api/energy/calculate", "host": ["{{baseUrl}}"], "path": ["api", "energy", "calculate"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('Metodo factura', function () { pm.expect(pm.response.json().consumo.metodo).to.eql('factura'); });"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "03 OCR con confirmación",
+      "item": [
+        {
+          "name": "POST /api/solar/ocr-parse (imagen)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "imagen", "type": "file", "src": "{{imagenPath}}" },
+                { "key": "texto", "type": "text", "value": "Etiqueta: Potencia: 150 W Horas: 24 Voltaje: 120 V" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/api/solar/ocr-parse", "host": ["{{baseUrl}}"], "path": ["api", "solar", "ocr-parse"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 201', function () { pm.response.to.have.status(201); });",
+            "var j = pm.response.json();",
+            "pm.collectionVariables.set('ocrId', j.id);",
+            "pm.test('Borrador pendiente', function () { pm.expect(j.estado).to.eql('pendiente_confirmacion'); });"
+          ] } }]
+        },
+        {
+          "name": "POST /api/solar/ocr-confirm",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ocrId\": \"{{ocrId}}\",\n  \"campos\": [\n    { \"campo\": \"potenciaW\", \"valor\": 150 },\n    { \"campo\": \"horasDia\", \"valor\": 24 },\n    { \"campo\": \"voltajeV\", \"valor\": 120 }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/api/solar/ocr-confirm", "host": ["{{baseUrl}}"], "path": ["api", "solar", "ocr-confirm"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('Estado confirmado', function () { pm.expect(pm.response.json().estado).to.eql('confirmado'); });"
+          ] } }]
+        },
+        {
+          "name": "POST /api/energy/calculate (desde OCR)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"origen\": \"OCR\",\n  \"ocrId\": \"{{ocrId}}\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/energy/calculate", "host": ["{{baseUrl}}"], "path": ["api", "energy", "calculate"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('Origen OCR en auditoría', function () { pm.expect(pm.response.json().auditoria.origen).to.eql('OCR'); });"
+          ] } }]
+        },
+        {
+          "name": "POST /api/solar/ocr-parse (sin imagen → 400)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/solar/ocr-parse", "host": ["{{baseUrl}}"], "path": ["api", "solar", "ocr-parse"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 400', function () { pm.response.to.have.status(400); });",
+            "pm.test('Código ARCHIVO_REQUERIDO', function () { pm.expect(pm.response.json().error.code).to.eql('ARCHIVO_REQUERIDO'); });"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "04 Telegram / MCP",
+      "item": [
+        {
+          "name": "GET /microservices/telegram/health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/microservices/telegram/health", "host": ["{{baseUrl}}"], "path": ["microservices", "telegram", "health"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('Sin token queda degraded', function () { pm.expect(['ok','degraded']).to.include(pm.response.json().status); });"
+          ] } }]
+        },
+        {
+          "name": "GET /microservices/telegram/mcp/tools",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/microservices/telegram/mcp/tools", "host": ["{{baseUrl}}"], "path": ["microservices", "telegram", "mcp", "tools"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('5 herramientas', function () { pm.expect(pm.response.json().herramientas.length).to.eql(5); });"
+          ] } }]
+        },
+        {
+          "name": "POST /microservices/telegram/mcp/tools/consultar_stock",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"argumentos\": { \"tipo\": \"panel\" }\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/microservices/telegram/mcp/tools/consultar_stock", "host": ["{{baseUrl}}"], "path": ["microservices", "telegram", "mcp", "tools", "consultar_stock"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('Herramienta respondida', function () { pm.expect(pm.response.json().herramienta).to.eql('consultar_stock'); });"
+          ] } }]
+        },
+        {
+          "name": "POST /microservices/telegram/webhook",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/microservices/telegram/webhook", "host": ["{{baseUrl}}"], "path": ["microservices", "telegram", "webhook"] }
+          },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('ok true', function () { pm.expect(pm.response.json().ok).to.be.true; });"
+          ] } }]
+        }
+      ]
+    }
+  ]
+}

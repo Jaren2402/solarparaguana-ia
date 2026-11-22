@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "RUTA_NO_ENCONTRADA",
+    "message": "La ruta solicitada no existe en esta API.",
+    "suggestion": "Revise /context/api_contracts.md o consulte GET /api/energy/constants.",
+    "details": []
+  }
+}

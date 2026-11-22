@@ -1,0 +1,296 @@
+{
+  "almacenes": [
+    "Coro",
+    "Punto Fijo"
+  ],
+  "items": [
+    {
+      "sku": "PAN-JINKO-550-CORO",
+      "tipo": "panel",
+      "modelo": "Jinko Solar Tiger Neo N-Type 550 W",
+      "potenciaWp": 550,
+      "capacidadKVA": null,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 120
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 165,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "PAN-JINKO-550-PFJ",
+      "tipo": "panel",
+      "modelo": "Jinko Solar Tiger Neo N-Type 550 W",
+      "potenciaWp": 550,
+      "capacidadKVA": null,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Punto Fijo",
+        "disponible": 86
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 168,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "INV-MUST-3KW-CORO",
+      "tipo": "inversor",
+      "modelo": "Must PV18-3024 3 kW senoidal pura",
+      "potenciaWp": null,
+      "capacidadKVA": 3.3,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 18
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 340,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "INV-MUST-3KW-PFJ",
+      "tipo": "inversor",
+      "modelo": "Must PV18-3024 3 kW senoidal pura",
+      "potenciaWp": null,
+      "capacidadKVA": 3.3,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Punto Fijo",
+        "disponible": 11
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 348,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "INV-GROWATT-3KW-CORO",
+      "tipo": "inversor",
+      "modelo": "Growatt SPF 3000 TL 3 kW senoidal pura",
+      "potenciaWp": null,
+      "capacidadKVA": 3.3,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 9
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 395,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "INV-MUST-5KW-CORO",
+      "tipo": "inversor",
+      "modelo": "Must PV18-5048 5 kW senoidal pura",
+      "potenciaWp": null,
+      "capacidadKVA": 5.6,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 14
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 520,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "INV-MUST-5KW-PFJ",
+      "tipo": "inversor",
+      "modelo": "Must PV18-5048 5 kW senoidal pura",
+      "potenciaWp": null,
+      "capacidadKVA": 5.6,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Punto Fijo",
+        "disponible": 7
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 535,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "INV-GROWATT-5KW-CORO",
+      "tipo": "inversor",
+      "modelo": "Growatt SPF 5000 ES 5 kW senoidal pura",
+      "potenciaWp": null,
+      "capacidadKVA": 5.6,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 6
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 610,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "INV-GROWATT-5KW-PFJ",
+      "tipo": "inversor",
+      "modelo": "Growatt SPF 5000 ES 5 kW senoidal pura",
+      "potenciaWp": null,
+      "capacidadKVA": 5.6,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Punto Fijo",
+        "disponible": 5
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 625,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "BAT-FELICITY-48V100-CORO",
+      "tipo": "bateria",
+      "modelo": "Felicity Lithium LiFePO4 48 V 100 Ah con BMS",
+      "potenciaWp": null,
+      "capacidadKVA": null,
+      "capacidadAh": 100,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 40
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 980,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "BAT-FELICITY-48V100-PFJ",
+      "tipo": "bateria",
+      "modelo": "Felicity Lithium LiFePO4 48 V 100 Ah con BMS",
+      "potenciaWp": null,
+      "capacidadKVA": null,
+      "capacidadAh": 100,
+      "stock": {
+        "almacen": "Punto Fijo",
+        "disponible": 25
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 995,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "BAT-FELICITY-48V200-CORO",
+      "tipo": "bateria",
+      "modelo": "Felicity Lithium LiFePO4 48 V 200 Ah con BMS",
+      "potenciaWp": null,
+      "capacidadKVA": null,
+      "capacidadAh": 200,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 12
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 1750,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "BAT-GEL-12V200-CORO",
+      "tipo": "bateria",
+      "modelo": "Volt Gel 12 V 200 Ah",
+      "potenciaWp": null,
+      "capacidadKVA": null,
+      "capacidadAh": 200,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 60
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 210,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "ACC-MPPT60-CORO",
+      "tipo": "accesorio",
+      "modelo": "Epever Controlador MPPT 60 A",
+      "potenciaWp": null,
+      "capacidadKVA": null,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 20
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 180,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "ACC-ESTRUCTURA-CORO",
+      "tipo": "accesorio",
+      "modelo": "SolarParaguaná Estructura metálica para 4 paneles",
+      "potenciaWp": null,
+      "capacidadKVA": null,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 30
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 145,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "ACC-CABLEADO-PFJ",
+      "tipo": "accesorio",
+      "modelo": "SolarParaguaná Kit cableado solar 10 mm²",
+      "potenciaWp": null,
+      "capacidadKVA": null,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Punto Fijo",
+        "disponible": 35
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 75,
+        "moneda": "USD"
+      },
+      "vigente": true
+    }
+  ]
+}

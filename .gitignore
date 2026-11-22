@@ -4,6 +4,12 @@ dist/
 .angular/
 *.log
 
+# Archivos subidos durante las pruebas (se conserva la estructura)
+projects/backend/uploads/images/*
+!projects/backend/uploads/images/.gitkeep
+projects/backend/uploads/documents/*
+!projects/backend/uploads/documents/.gitkeep
+
 # Secretos: nunca entregar ni versionar
 .env
 .env.*

@@ -19,3 +19,21 @@ Registro de errores y parches aplicados.
 - **Solución:** en `bin/server.js`, dentro de `publics()`, responder `404` JSON con `code: RUTA_NO_ENCONTRADA` para rutas que empiecen por `/api` o `/microservices`, y `404` JSON con `code: FRONTEND_NO_DISPONIBLE` cuando no exista `public/index.html`. Se importó `fs` para comprobar la existencia del archivo antes de `sendFile`.
 - **Verificación:** rutas API inexistentes devuelven JSON legible y el log del servidor ya no registra `ENOENT`.
 - **Nota:** cuando se compile Angular en Sprint 2, el mismo fallback servirá `index.html` sin cambios.
+
+## 2026-11-22 — OCR con imagen fallaba por `__dirname` en ESM
+
+- **Síntoma:** `POST /api/solar/ocr-parse` **con imagen** devolvía un HTML 500 con
+  `ReferenceError: __dirname is not defined`. Sin imagen sí respondía el `400`
+  legible de `ARCHIVO_REQUERIDO`, por eso el fallo pasó desapercibido en las
+  pruebas iniciales.
+- **Causa:** `api/solar/calculator.controller.js` es un módulo ESM y usaba
+  `__dirname` para construir la ruta `uploads/images`. En ESM esa variable global
+  no existe (solo en CommonJS).
+- **Solución:** importar `fileURLToPath` de `url` y definir
+  `const __dirname = path.dirname(fileURLToPath(import.meta.url));`.
+- **Verificación:** el smoke test sube una imagen fixture y espera `201` con el
+  borrador en `pendiente_confirmacion`; luego confirma y calcula con `origen: OCR`.
+- **Prevención:** en archivos ESM usar siempre `import.meta.url` para rutas.
+  `node --check` valida sintaxis, pero **no detecta** variables no definidas que
+  solo se evalúan en tiempo de ejecución: por eso es necesario ejercitar también
+  el camino con datos reales (subir una imagen, no solo omitirla).

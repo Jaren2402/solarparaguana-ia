@@ -1,7 +1,10 @@
 import { randomUUID } from 'crypto';
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import Inventory, { ALMACENES, CATEGORIAS } from './inventory.model.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const CONSTANTES = Object.freeze({
     hsp: 6.0,

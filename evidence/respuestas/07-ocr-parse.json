@@ -1,0 +1,28 @@
+{
+  "id": "ocr_8cf082e3",
+  "estado": "pendiente_confirmacion",
+  "imagenUrl": "/uploads/images/ocr_8cf082e3.png",
+  "umbralConfianza": 0.85,
+  "campos": [
+    {
+      "campo": "potenciaW",
+      "valor": 150,
+      "confianza": 0.88,
+      "requiereRevision": false
+    },
+    {
+      "campo": "horasDia",
+      "valor": 24,
+      "confianza": 0.88,
+      "requiereRevision": false
+    },
+    {
+      "campo": "voltajeV",
+      "valor": 120,
+      "confianza": 0.88,
+      "requiereRevision": false
+    }
+  ],
+  "creadoEn": "2026-11-22T21:19:47.894Z",
+  "sugerencia": "Revise los campos extraídos, corrija los que estén marcados y confirme antes de calcular."
+}
