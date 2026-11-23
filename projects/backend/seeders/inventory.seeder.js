@@ -175,9 +175,11 @@ const EQUIPOS = [
     }
 ];
 
-export async function seedInventory() {
+export async function seedInventory({ disconnect = true } = {}) {
     const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/solarparaguana_ia';
-    await mongoose.connect(uri);
+    if (mongoose.connection.readyState !== 1) {
+        await mongoose.connect(uri);
+    }
 
     try {
         const operaciones = EQUIPOS.map((equipo) => ({
@@ -206,7 +208,9 @@ export async function seedInventory() {
             porAlmacen: totales
         };
     } finally {
-        await mongoose.disconnect();
+        if (disconnect) {
+            await mongoose.disconnect();
+        }
     }
 }
 

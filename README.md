@@ -286,12 +286,28 @@ pm2 start ecosystem.config.cjs --env production
 
 Antes de desplegar, define `PORT`, `MONGO_URI` y, si aplica, los tokens de Telegram en el entorno del servidor. La plataforma debe poder instalar Node 20 o superior.
 
+### Despliegue actual (Railway)
+
+- **URL pública:** <https://solarparaguana-ia-production.up.railway.app>
+- **Repositorio:** `Jaren2402/solarparaguana-ia`, rama `main`
+- **Root Directory:** `projects/backend`
+- **Base de datos:** MongoDB Atlas (`solarparaguana_ia`), verificada desde Railway.
+- **Inventario:** 16 equipos de Coro / Punto Fijo cargados automáticamente al arrancar.
+
+Verificación rápida:
+
+```text
+GET https://solarparaguana-ia-production.up.railway.app/api/energy/constants
+GET https://solarparaguana-ia-production.up.railway.app/api/inventory
+```
+
 ---
 
 ## 10. Estado del proyecto
 
 - ✅ Sprint 1 completo: estructura, cálculo, OCR, cotización, inventario y MCP.
-- ⏳ Frontend Angular, aplicación móvil y despliegue remoto: entregas posteriores.
+- ✅ Backend desplegado y verificado en Railway con MongoDB Atlas.
+- ⏳ Frontend Angular y aplicación móvil: entregas posteriores.
 
 Las decisiones de arquitectura y los problemas resueltos están documentados en [`memory/`](memory/).
 
