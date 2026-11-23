@@ -2,6 +2,24 @@
 
 Historial de decisiones de diseño.
 
+## 2026-11-22 — Despliegue del backend en Railway con MongoDB Atlas
+
+- Se usa el **proyecto existente** de Railway (`sparkling-blessing`) agregando la API como
+  tercer servicio, para conservar los dos servicios del proyecto anterior. El plan Free solo
+  permite 1 proyecto con 3 servicios.
+- URL pública: `https://solarparaguana-ia-production.up.railway.app`.
+- Root Directory `projects/backend`; Railway detecta Node 20 y ejecuta `npm start`.
+  `engines` se relajó de `>=26` a `>=20` para que el build sea aceptado.
+- Se usa el cluster gratuito **M0** de Atlas (`Cluster0`, base `solarparaguana_ia`) y el
+  usuario dedicado `solar_user` con rol `readWriteAnyDatabase`. Network Access ya tenía
+  `0.0.0.0/0` activo.
+- La carga del inventario se hace **al arrancar** (`seedInventory({ disconnect: false })`)
+  porque la UI de Railway no persistió el Pre-Deploy Command. El seeder es idempotente por
+  `sku` y usa la conexión Mongo existente, sin desconectarla.
+- Verificado desde la nube: `/api/inventory` devuelve 16 equipos y `/api/solar/quote`
+  devuelve 3865 USD. La PC local no puede salir por el puerto 27017, por eso la prueba
+  definitiva se hizo en Railway.
+
 ## 2026-11-21 — Módulo `api/solar`: OCR y cotización local
 
 - **OCR (POST /api/solar/ocr-parse):** se usa `express-fileupload` (middleware global) y

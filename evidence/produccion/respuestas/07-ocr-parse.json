@@ -1,0 +1,28 @@
+{
+  "id": "ocr_4ad96218",
+  "estado": "pendiente_confirmacion",
+  "imagenUrl": "/uploads/images/ocr_4ad96218.png",
+  "umbralConfianza": 0.85,
+  "campos": [
+    {
+      "campo": "potenciaW",
+      "valor": 150,
+      "confianza": 0.88,
+      "requiereRevision": false
+    },
+    {
+      "campo": "horasDia",
+      "valor": 24,
+      "confianza": 0.88,
+      "requiereRevision": false
+    },
+    {
+      "campo": "voltajeV",
+      "valor": 120,
+      "confianza": 0.88,
+      "requiereRevision": false
+    }
+  ],
+  "creadoEn": "2026-11-23T01:48:49.260Z",
+  "sugerencia": "Revise los campos extraídos, corrija los que estén marcados y confirme antes de calcular."
+}

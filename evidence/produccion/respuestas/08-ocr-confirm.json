@@ -1,0 +1,11 @@
+{
+  "id": "ocr_4ad96218",
+  "estado": "confirmado",
+  "camposConfirmados": {
+    "potenciaW": 150,
+    "horasDia": 24,
+    "voltajeV": 120
+  },
+  "confirmadoEn": "2026-11-23T01:48:49.557Z",
+  "sugerencia": "Ya puede ejecutar POST /api/energy/calculate con origen OCR y este ocrId."
+}

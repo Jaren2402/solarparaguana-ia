@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "ARCHIVO_REQUERIDO",
+    "message": "No recibimos la imagen de la etiqueta o factura.",
+    "suggestion": "Envíe la imagen en el campo imagen con multipart/form-data.",
+    "details": [],
+    "traceId": "tr_1a841534-5418-4725-9d3a-c2b220cfc187"
+  }
+}

@@ -3,10 +3,12 @@
  *
  * Uso:
  *   node scripts/smoke-test.mjs
+ *   BASE_URL=https://tu-backend.up.railway.app node scripts/smoke-test.mjs
  *
  * Si el servidor no está arriba, el propio script lo inicia y lo detiene al final.
+ * Con BASE_URL se prueba un despliegue remoto sin iniciar servidor local.
  * Guarda cada respuesta en /evidence/respuestas y un resumen en
- * /evidence/smoke-test-result.txt.
+ * /evidence/smoke-test-result.txt (o en /evidence/produccion/ para BASE_URL).
  */
 import http from 'node:http';
 import fs from 'node:fs/promises';
@@ -17,12 +19,22 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const backendDir = path.join(root, 'projects', 'backend');
 const evidenceDir = path.join(root, 'evidence');
-const respuestasDir = path.join(evidenceDir, 'respuestas');
+let respuestasDir = path.join(evidenceDir, 'respuestas');
 const fixture = path.join(root, 'postman', 'fixtures', 'etiqueta-ejemplo.png');
 const port = Number(process.env.PORT || 18512);
 const host = '127.0.0.1';
+const baseUrl = process.env.BASE_URL?.trim().replace(/\/$/, '') || '';
+const evidenceActual = baseUrl ? path.join(evidenceDir, 'produccion') : evidenceDir;
 
 function request({ method = 'GET', ruta, headers = {}, body = null }) {
+    if (baseUrl) {
+        return fetch(`${baseUrl}${ruta}`, {
+            method,
+            headers,
+            body,
+            signal: AbortSignal.timeout(15000)
+        }).then(async (res) => ({ status: res.status, text: await res.text() }));
+    }
     return new Promise((resolve, reject) => {
         const req = http.request(
             { host, port, path: ruta, method, headers, timeout: 5000 },
@@ -122,10 +134,11 @@ async function registrar(indice, nombre, ruta, respuesta, esperado, resumen) {
 }
 
 async function main() {
+    respuestasDir = path.join(evidenceActual, 'respuestas');
     await fs.mkdir(respuestasDir, { recursive: true });
 
     let servidor = null;
-    if (!(await servidorArriba())) {
+    if (!baseUrl && !(await servidorArriba())) {
         console.log('Servidor no detectado: iniciando node index.js ...');
         servidor = spawn(process.execPath, ['index.js'], {
             cwd: backendDir,
@@ -257,7 +270,7 @@ async function main() {
         const lineas = [
             'SolarParaguaná IA — Evidencia de pruebas backend',
             `Fecha: ${new Date().toISOString()}`,
-            `Base: http://${host}:${port}`,
+            `Base: ${baseUrl || `http://${host}:${port}`}`,
             `Resultado: ${pasadas}/${resultados.length} pruebas correctas`,
             '',
             ...resultados.map((r) =>
@@ -268,7 +281,7 @@ async function main() {
         ];
 
         await fs.writeFile(
-            path.join(evidenceDir, 'smoke-test-result.txt'),
+            path.join(evidenceActual, 'smoke-test-result.txt'),
             lineas.join('\n') + '\n',
             'utf8'
         );

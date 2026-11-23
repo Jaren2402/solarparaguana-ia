@@ -1,0 +1,86 @@
+{
+  "id": "cot_4699ad3c",
+  "estado": "emitida",
+  "calculoId": "calc_1ed4c9a8",
+  "vigencia": "2026-12-08",
+  "almacenes": [
+    "Coro",
+    "Punto Fijo"
+  ],
+  "items": [
+    {
+      "tipo": "panel",
+      "sku": "PAN-JINKO-550-CORO",
+      "marca": "Jinko Solar",
+      "modelo": "Tiger Neo N-Type 550 W",
+      "capacidad": {
+        "valor": 550,
+        "unidad": "Wp"
+      },
+      "cantidad": 5,
+      "precioUnitario": {
+        "monto": 165,
+        "moneda": "USD"
+      },
+      "subtotal": {
+        "monto": 825,
+        "moneda": "USD"
+      },
+      "almacenes": [
+        "Coro",
+        "Punto Fijo"
+      ]
+    },
+    {
+      "tipo": "inversor",
+      "sku": "INV-MUST-5KW-CORO",
+      "marca": "Must",
+      "modelo": "PV18-5048 5 kW senoidal pura",
+      "capacidad": {
+        "valor": 5.6,
+        "unidad": "kVA"
+      },
+      "cantidad": 1,
+      "precioUnitario": {
+        "monto": 520,
+        "moneda": "USD"
+      },
+      "subtotal": {
+        "monto": 520,
+        "moneda": "USD"
+      },
+      "almacenes": [
+        "Coro",
+        "Punto Fijo"
+      ]
+    },
+    {
+      "tipo": "bateria",
+      "sku": "BAT-GEL-12V200-CORO",
+      "marca": "Volt",
+      "modelo": "Gel 12 V 200 Ah",
+      "capacidad": {
+        "valor": 200,
+        "unidad": "Ah"
+      },
+      "cantidad": 12,
+      "precioUnitario": {
+        "monto": 210,
+        "moneda": "USD"
+      },
+      "subtotal": {
+        "monto": 2520,
+        "moneda": "USD"
+      },
+      "almacenes": [
+        "Coro"
+      ]
+    }
+  ],
+  "presupuesto": {
+    "monto": 3865,
+    "moneda": "USD"
+  },
+  "cotizable": true,
+  "observaciones": []
+}

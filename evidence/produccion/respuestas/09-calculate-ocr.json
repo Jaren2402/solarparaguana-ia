@@ -1,0 +1,73 @@
+{
+  "id": "calc_1c069a77",
+  "estado": "calculado",
+  "status": "ok",
+  "consumo": {
+    "diarioKWh": 3.6,
+    "metodo": "equipos"
+  },
+  "generacion": {
+    "requeridaKWhDia": 4.5,
+    "potenciaArrayKWp": 0.75
+  },
+  "paneles": {
+    "potenciaUnitariaWp": 550,
+    "cantidad": 2
+  },
+  "inversor": {
+    "cargaPicoUsadaKW": 0.15,
+    "picosArranqueAplicados": false,
+    "potenciaNecesariaKW": 0.188,
+    "capacidadRequeridaKVA": 0.21,
+    "factorPotenciaUsado": 0.9
+  },
+  "bancoBaterias": {
+    "tecnologia": "LITIO",
+    "dod": 0.8,
+    "autonomiaDias": 1,
+    "energiaRequeridaKWh": 3.6,
+    "energiaNominalKWh": 5.625,
+    "capacidadRequeridaAh": 117.187,
+    "voltajeBancoV": 48,
+    "referencia": {
+      "voltajeV": 12,
+      "capacidadAh": 200
+    },
+    "configuracion": {
+      "unidadesSerie": 4,
+      "unidadesParalelo": 1,
+      "totalUnidades": 4
+    }
+  },
+  "calculation": {
+    "totalKwhDay": 3.6,
+    "recommendedInverterKva": 0.21,
+    "totalPanels": 2,
+    "batteryBankAh": 117.187
+  },
+  "localQuote": null,
+  "auditoria": {
+    "origen": "OCR",
+    "ocrId": "ocr_4ad96218",
+    "constantesUsadas": {
+      "hsp": 6,
+      "eficienciaGlobal": 0.8,
+      "factorSeguridadInversor": 1.25,
+      "panelWp": 550,
+      "factorArranqueMotor": 3
+    },
+    "formulas": {
+      "consumoDiario": "Σ(P_i × h_i) / 1000",
+      "generacion": "E_d / η",
+      "potenciaArray": "E_gen / HSP",
+      "paneles": "ceil(P_array / 0.550)",
+      "inversorKW": "Carga pico (kW) × 1.25",
+      "inversorKVA": "kW / FP",
+      "bateria": "E_d × autonomía / (DoD × η)"
+    }
+  },
+  "siguientePaso": {
+    "cotizable": true,
+    "accion": "POST /api/solar/quote"
+  }
+}

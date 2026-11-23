@@ -348,3 +348,10 @@ Para regenerar la evidencia:
 ```powershell
 node projects\backend\scripts\smoke-test.mjs
 ```
+
+Para probar el despliegue en vez del servidor local:
+
+```powershell
+$env:BASE_URL='https://solarparaguana-ia-production.up.railway.app'
+node projects\backend\scripts\smoke-test.mjs
+```

@@ -1,0 +1,93 @@
+{
+  "herramientas": [
+    {
+      "nombre": "extraer_ocr",
+      "descripcion": "Extrae datos de una foto de factura o etiqueta. Use POST /api/solar/ocr-parse.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string"
+          },
+          "tipo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "fileId"
+        ]
+      }
+    },
+    {
+      "nombre": "confirmar_ocr",
+      "descripcion": "Confirma los campos extraídos. Use POST /api/solar/ocr-confirm.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ocrId": {
+            "type": "string"
+          },
+          "confirmado": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ocrId"
+        ]
+      }
+    },
+    {
+      "nombre": "calcular",
+      "descripcion": "Dimensiona el sistema a partir de texto, equipos o consumo diario.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "texto": {
+            "type": "string"
+          },
+          "equipos": {
+            "type": "array"
+          },
+          "cargaPicoKW": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    {
+      "nombre": "cotizar",
+      "descripcion": "Genera presupuesto con stock de Coro y Punto Fijo.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "calculoId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "calculoId"
+        ]
+      }
+    },
+    {
+      "nombre": "consultar_stock",
+      "descripcion": "Consulta equipos disponibles en los almacenes locales.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "almacen": {
+            "type": "string",
+            "enum": [
+              "Coro",
+              "Punto Fijo"
+            ]
+          },
+          "tipo": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "modo": "sin_token"
+}

@@ -47,6 +47,24 @@ También hay una colección de Postman importable en [`postman/SolarParaguana.po
 - `smoke-test-result.txt` — resumen legible con fecha, base URL y resultado de cada caso.
 - `respuestas/01-constants.json` … `15-ruta-inexistente.json` — cuerpo completo de cada respuesta.
 
+## Verificación en producción (Railway + MongoDB Atlas)
+
+Base: `https://solarparaguana-ia-production.up.railway.app`
+
+| Verificación | Resultado |
+|---|---|
+| `GET /api/energy/constants` | 200 — constantes del dimensionamiento |
+| `GET /api/inventory` | 200 — **16 equipos** leídos desde MongoDB Atlas |
+| `POST /api/energy/calculate` | 200 — 12,3 kWh/día, 5 paneles de 550 W, inversor 5 kVA |
+| `POST /api/solar/quote` | 201 — presupuesto **3865 USD**, 3 ítems |
+
+Detalle: [`produccion-verificacion.json`](produccion-verificacion.json).
+Además, el smoke test completo se ejecutó contra esta base con `BASE_URL=... node scripts/smoke-test.mjs`: **15/15 pruebas correctas**; ver [`produccion/smoke-test-result.txt`](produccion/smoke-test-result.txt) y [`produccion/respuestas/`](produccion/respuestas/).
+
+> El inventario se carga automáticamente al arrancar (`seedInventory({ disconnect: false })`),
+> de forma idempotente por `sku`. Así se confirmó también que Railway sí puede conectar
+> con Atlas, aunque la PC local tenga bloqueado el puerto 27017.
+
 ## Observaciones
 
 - Los identificadores (`calc_…`, `ocr_…`, `cot_…`) y las fechas son generados en cada ejecución, por lo que cambian si vuelves a correr el script.

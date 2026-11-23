@@ -1,0 +1,6 @@
+{
+  "status": "degraded",
+  "version": "1.0.0",
+  "updatesPendientes": 0,
+  "detalle": "Falta TELEGRAM_BOT_TOKEN; el resto del servidor sigue activo."
+}

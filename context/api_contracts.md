@@ -2,6 +2,8 @@
 
 > Contratos vigentes del backend (Sprint 1). No incluye código fuente.
 > Referencias: `AGENTS.md`, `context/system_context.md`, `context/business_rules.md`.
+> **Base desplegada (producción):** `https://solarparaguana-ia-production.up.railway.app`.
+> El prefijo `/api` y `/microservices/telegram` se aplica sobre esa base.
 > Las rutas `/api/solar/calculate` y `/api/energy/calculate` son alias del mismo
 > controlador; la primera coincide con el Prompt 4.1 del Manual Maestro.
 

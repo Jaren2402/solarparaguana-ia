@@ -1,0 +1,46 @@
+{
+  "fecha": "2026-11-22",
+  "entorno": "production",
+  "baseUrl": "https://solarparaguana-ia-production.up.railway.app",
+  "plataforma": "Railway",
+  "baseDeDatos": "MongoDB Atlas (Cluster0, M0) — base solarparaguana_ia",
+  "verificaciones": [
+    {
+      "nombre": "constantes",
+      "metodo": "GET",
+      "ruta": "/api/energy/constants",
+      "http": 200,
+      "resultado": "hsp=6, eficienciaGlobal=0.8, panelReferenciaWp=550"
+    },
+    {
+      "nombre": "inventario",
+      "metodo": "GET",
+      "ruta": "/api/inventory",
+      "http": 200,
+      "resultado": "16 items, almacenes Coro y Punto Fijo"
+    },
+    {
+      "nombre": "calculo",
+      "metodo": "POST",
+      "ruta": "/api/energy/calculate",
+      "http": 200,
+      "resultado": "consumo=12.3 kWh/dia, paneles=5, inversor=5 kVA",
+      "request": {
+        "origen": "MANUAL",
+        "equipos": [
+          { "potenciaW": 150, "horasDia": 24, "voltajeV": 120, "tipo": "GENERAL" },
+          { "potenciaW": 1200, "horasDia": 6, "voltajeV": 120, "tipo": "GENERAL" },
+          { "potenciaW": 750, "horasDia": 2, "voltajeV": 120, "tipo": "MOTOR" }
+        ]
+      }
+    },
+    {
+      "nombre": "cotizacion",
+      "metodo": "POST",
+      "ruta": "/api/solar/quote",
+      "http": 201,
+      "resultado": "presupuesto=3865 USD, items=3, moneda=USD"
+    }
+  ],
+  "conclusion": "Backend publico operativo; conexion a MongoDB Atlas confirmada desde Railway mediante la carga del inventario y la cotizacion con stock local."
+}

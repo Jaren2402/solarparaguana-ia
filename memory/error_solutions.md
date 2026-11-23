@@ -2,6 +2,21 @@
 
 Registro de errores y parches aplicados.
 
+## 2026-11-22 — Atlas no conectaba desde la PC pero sí desde Railway
+
+- **Síntoma:** `mongoose.connect` fallaba con "Could not connect to any servers in your MongoDB Atlas cluster... IP isn't whitelisted", aunque `0.0.0.0/0` estaba activo y la IP pública coincidía.
+- **Diagnóstico:** DNS SRV resuelve los 3 nodos y la IP es correcta, pero `Test-NetConnection` al puerto 27017 daba `False`. El bloqueo era de la red local/ISP, no de Atlas.
+- **Solución:** no cambiar Atlas; verificar la conexión desde Railway, que sale por otra red. Confirmado: `/api/inventory` devolvió 16 equipos leídos desde Atlas.
+- **Prevención:** antes de responsabilizar a la whitelist, probar DNS SRV y puerto 27017; si el puerto está bloqueado, usar el despliegue para validar.
+
+## 2026-11-22 — Pre-Deploy Command de Railway no se persistió
+
+- **Síntoma:** el inventario quedaba vacío (200 con `items: []`) aunque el campo "Pre-deploy Command" parecía configurado. Al recargar Settings, los campos de Build/Start/Pre-deploy/Healthcheck volvían a mostrar el texto de "agregar".
+- **Causa:** los cambios escritos por script en esos campos no eran registrados por el estado del formulario de Railway; el banner "Apply N changes" no los incluía. El root directory sí se guardó.
+- **Solución:** cargar el inventario al arrancar en producción desde `index.js` con `seedInventory({ disconnect: false })`, y hacer que el seeder reutilice la conexión Mongoose existente (`readyState === 1`) y no la cierre. Idempotente por `sku`.
+- **Verificación:** tras el push, `/api/inventory` devolvió 16 equipos y `/api/solar/quote` devolvió 3865 USD.
+- **Prevención:** para ajustes en UI de Railway, confirmar el valor después de recargar la página; si no persiste, mover la lógica al código de la app.
+
 ## 2026-11-22 — Rutas del microservicio Telegram se colgaban
 
 - **Síntoma:** `GET /microservices/telegram/health` y `GET /microservices/telegram/mcp/tools` nunca respondían (timeout / `ECONNRESET`). El resto de `/api` funcionaba normal.
