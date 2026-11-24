@@ -209,6 +209,7 @@ Cuerpo:
 
 ```json
 {
+  "ocrId": "ocr_7c2e",
   "confirmado": true,
   "campos": [
     { "campo": "consumoMensualKWh", "valor": 300 },
@@ -235,9 +236,10 @@ Respuesta `200`:
 }
 ```
 
-**Errores propios:** `422` si `confirmado` es `false` o faltan campos
-obligatorios; `409` con código `OCR_YA_CONFIRMADO` si se intenta confirmar dos
-veces; `404` si el id no existe; `400/413/415` por validación de imagen.
+**Errores propios:** `422` con código `OCR_NO_CONFIRMADO` si `confirmado` es
+`false`; `422` con código `CAMPOS_OCR_INVALIDOS` si faltan campos obligatorios;
+`409` con código `OCR_YA_CONFIRMADO` si se intenta confirmar dos veces; `404`
+si el id no existe; `400/413/415` por validación de imagen.
 
 > Regla crítica: ningún campo con `origen = OCR` puede alimentar
 > `POST /api/energy/calculate` mientras el estado sea

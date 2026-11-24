@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { calcularDimensionamiento, cotizarCalculo, SolarError } from '../api/solar/calculator.controller.js';
 import Inventory, { ALMACENES } from '../api/solar/inventory.model.js';
+import { responderErrorLegible } from '../helpers/respuestas.js';
 
 const TELEGRAM_API = 'https://api.telegram.org';
 export const VERSION = '1.0.0';
@@ -18,8 +19,17 @@ export const HERRAMIENTAS = Object.freeze([
     },
     {
         nombre: 'calcular',
-        descripcion: 'Dimensiona el sistema a partir de texto, equipos o consumo diario.',
-        inputSchema: { type: 'object', properties: { texto: { type: 'string' }, equipos: { type: 'array' }, cargaPicoKW: { type: 'number' } } }
+        descripcion: 'Dimensiona el sistema a partir de texto, equipos, OCR o consumo mensual.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                texto: { type: 'string' },
+                equipos: { type: 'array' },
+                ocrId: { type: 'string' },
+                consumoMensualKWh: { type: 'number' },
+                cargaPicoKW: { type: 'number' }
+            }
+        }
     },
     {
         nombre: 'cotizar',
@@ -370,12 +380,47 @@ export async function ejecutarHerramienta(nombre, argumentos = {}, contexto = {}
     const args = argumentos ?? {};
 
     if (nombre === 'calcular') {
-        const resultado = await procesarSolicitud(args.texto ?? '', contexto);
-        return {
-            herramienta: nombre,
-            resultado: resultado.calculo ?? null,
-            mensajeTelegram: resultado.respuesta
-        };
+        const opcionesCalculo = { user: { rol: 'cliente' } };
+        try {
+            let calculo;
+            if (typeof args.ocrId === 'string' && args.ocrId.trim()) {
+                calculo = calcularDimensionamiento({
+                    origen: 'OCR',
+                    ocrId: args.ocrId.trim(),
+                    cargaPicoKW: args.cargaPicoKW
+                }, opcionesCalculo);
+            } else if (Array.isArray(args.equipos) && args.equipos.length > 0) {
+                calculo = calcularDimensionamiento({
+                    origen: 'MANUAL',
+                    equipos: args.equipos,
+                    cargaPicoKW: args.cargaPicoKW
+                }, opcionesCalculo);
+            } else if (args.consumoMensualKWh !== undefined && args.consumoMensualKWh !== null) {
+                calculo = calcularDimensionamiento({
+                    origen: 'MANUAL',
+                    consumoMensualKWh: args.consumoMensualKWh,
+                    diasDelMes: args.diasDelMes ?? 30,
+                    cargaPicoKW: args.cargaPicoKW
+                }, opcionesCalculo);
+            } else {
+                const resultado = await procesarSolicitud(args.texto ?? '', contexto);
+                return {
+                    herramienta: nombre,
+                    resultado: resultado.calculo ?? null,
+                    mensajeTelegram: resultado.respuesta
+                };
+            }
+            return {
+                herramienta: nombre,
+                resultado: calculo,
+                mensajeTelegram:
+                    `Cálculo ${calculo.id}: ${calculo.consumo.diarioKWh} kWh/día, ` +
+                    `${calculo.calculation.totalPanels} paneles de 550 W e inversor ` +
+                    `${calculo.calculation.recommendedInverterKva} kVA.`
+            };
+        } catch (error) {
+            return { herramienta: nombre, resultado: null, mensajeTelegram: mensajeLegible(error) };
+        }
     }
     if (nombre === 'cotizar') {
         try {
@@ -464,13 +509,13 @@ export function createTelegramRouter() {
     router.get('/mcp/tools', (req, res) => {
         const acceso = autorizado(req);
         if (!acceso.ok) {
-            return res.status(401).json({
-                error: {
-                    code: 'MCP_TOKEN_INVALIDO',
-                    message: 'No tiene acceso al registro de herramientas.',
-                    suggestion: 'Envíe Authorization: Bearer <MCP_SERVICE_TOKEN>.'
-                }
-            });
+            return responderErrorLegible(
+                res,
+                401,
+                'MCP_TOKEN_INVALIDO',
+                'No tiene acceso al registro de herramientas.',
+                'Envíe Authorization: Bearer <MCP_SERVICE_TOKEN>.'
+            );
         }
         return res.status(200).json({ herramientas: HERRAMIENTAS, modo: acceso.modo });
     });
@@ -478,13 +523,13 @@ export function createTelegramRouter() {
     router.post('/mcp/tools/:nombre', async (req, res) => {
         const acceso = autorizado(req);
         if (!acceso.ok) {
-            return res.status(401).json({
-                error: {
-                    code: 'MCP_TOKEN_INVALIDO',
-                    message: 'No tiene permiso para ejecutar herramientas.',
-                    suggestion: 'Envíe Authorization: Bearer <MCP_SERVICE_TOKEN>.'
-                }
-            });
+            return responderErrorLegible(
+                res,
+                401,
+                'MCP_TOKEN_INVALIDO',
+                'No tiene permiso para ejecutar herramientas.',
+                'Envíe Authorization: Bearer <MCP_SERVICE_TOKEN>.'
+            );
         }
         const resultado = await ejecutarHerramienta(
             req.params.nombre,
@@ -498,13 +543,13 @@ export function createTelegramRouter() {
     router.post('/webhook', (req, res) => {
         const secreto = process.env.TELEGRAM_WEBHOOK_SECRET?.trim();
         if (secreto && req.get('x-telegram-bot-api-secret-token') !== secreto) {
-            return res.status(401).json({
-                error: {
-                    code: 'WEBHOOK_SECRETO_INVALIDO',
-                    message: 'La cabecera de seguridad del webhook no coincide.',
-                    suggestion: 'Configure X-Telegram-Bot-Api-Secret-Token con TELEGRAM_WEBHOOK_SECRET.'
-                }
-            });
+            return responderErrorLegible(
+                res,
+                401,
+                'WEBHOOK_SECRETO_INVALIDO',
+                'La cabecera de seguridad del webhook no coincide.',
+                'Configure X-Telegram-Bot-Api-Secret-Token con TELEGRAM_WEBHOOK_SECRET.'
+            );
         }
 
         res.status(200).json({ ok: true });

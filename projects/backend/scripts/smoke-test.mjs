@@ -213,6 +213,7 @@ async function main() {
             8, 'ocr-confirm', '/api/solar/ocr-confirm',
             await jsonRequest('POST', '/api/solar/ocr-confirm', {
                 ocrId: ocr.id,
+                confirmado: true,
                 campos: [
                     { campo: 'potenciaW', valor: 150 },
                     { campo: 'horasDia', valor: 24 },

@@ -1,5 +1,5 @@
 {
-  "id": "calc_032fa93c",
+  "id": "calc_946cf7df",
   "estado": "calculado",
   "status": "ok",
   "consumo": {
@@ -48,7 +48,7 @@
   "localQuote": null,
   "auditoria": {
     "origen": "OCR",
-    "ocrId": "ocr_2b4efea6",
+    "ocrId": "ocr_ebe4d5ef",
     "constantesUsadas": {
       "hsp": 6,
       "eficienciaGlobal": 0.8,

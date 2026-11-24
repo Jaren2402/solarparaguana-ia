@@ -1,7 +1,7 @@
 {
-  "id": "ocr_2b4efea6",
+  "id": "ocr_ebe4d5ef",
   "estado": "pendiente_confirmacion",
-  "imagenUrl": "/uploads/images/ocr_2b4efea6.png",
+  "imagenUrl": "/uploads/images/ocr_ebe4d5ef.png",
   "umbralConfianza": 0.85,
   "campos": [
     {
@@ -23,6 +23,6 @@
       "requiereRevision": false
     }
   ],
-  "creadoEn": "2026-11-23T01:44:22.810Z",
+  "creadoEn": "2026-11-24T12:51:10.974Z",
   "sugerencia": "Revise los campos extraídos, corrija los que estén marcados y confirme antes de calcular."
 }

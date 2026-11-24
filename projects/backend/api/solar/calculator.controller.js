@@ -354,6 +354,15 @@ export const confirmarOCR = (req, res) => {
             'Vuelva a subir la imagen con POST /api/solar/ocr-parse.'
         );
     }
+    if (req.body?.confirmado === false) {
+        return responderError(
+            res,
+            422,
+            'OCR_NO_CONFIRMADO',
+            'El borrador no fue confirmado.',
+            'Envíe confirmado: true junto con los campos revisados para continuar.'
+        );
+    }
     if (borrador.estado === 'confirmado') {
         return responderError(
             res,

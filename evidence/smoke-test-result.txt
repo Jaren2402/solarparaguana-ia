@@ -1,17 +1,17 @@
 SolarParaguaná IA — Evidencia de pruebas backend
-Fecha: 2026-11-23T01:44:22.842Z
+Fecha: 2026-11-24T12:51:11.020Z
 Base: http://127.0.0.1:18512
 Resultado: 15/15 pruebas correctas
 
 [PASS] 01 constants          /api/energy/constants                                HTTP 200 (esperado 200) — hsp=6, eficiencia=0.8
 [PASS] 02 inventory          /api/inventory                                       HTTP 200 (esperado 200) — items=16, almacenes=Coro/Punto Fijo
-[PASS] 03 calculate          /api/energy/calculate                                HTTP 200 (esperado 200) — id=calc_41e2e906, kWh=12.3, paneles=5, inversor=5 kVA
+[PASS] 03 calculate          /api/energy/calculate                                HTTP 200 (esperado 200) — id=calc_04b2ccd3, kWh=12.3, paneles=5, inversor=5 kVA
 [PASS] 04 calculate-alias    /api/solar/calculate                                 HTTP 200 (esperado 200) — status=ok, bateria=400.391 Ah
 [PASS] 05 quote              /api/solar/quote                                     HTTP 201 (esperado 201) — presupuesto=3865 USD, items=3
 [PASS] 06 calculate-factura  /api/energy/calculate                                HTTP 200 (esperado 200) — metodo=factura, kWh=10
-[PASS] 07 ocr-parse          /api/solar/ocr-parse                                 HTTP 201 (esperado 201) — id=ocr_2b4efea6, estado=pendiente_confirmacion, campos=3
+[PASS] 07 ocr-parse          /api/solar/ocr-parse                                 HTTP 201 (esperado 201) — id=ocr_ebe4d5ef, estado=pendiente_confirmacion, campos=3
 [PASS] 08 ocr-confirm        /api/solar/ocr-confirm                               HTTP 200 (esperado 200) — estado=confirmado, potencia=150 W
-[PASS] 09 calculate-ocr      /api/energy/calculate                                HTTP 200 (esperado 200) — origen=OCR, ocrId=ocr_2b4efea6, kWh=3.6
+[PASS] 09 calculate-ocr      /api/energy/calculate                                HTTP 200 (esperado 200) — origen=OCR, ocrId=ocr_ebe4d5ef, kWh=3.6
 [PASS] 10 ocr-sin-imagen     /api/solar/ocr-parse                                 HTTP 400 (esperado 400) — code=ARCHIVO_REQUERIDO
 [PASS] 11 telegram-health    /microservices/telegram/health                       HTTP 200 (esperado 200) — status=degraded, version=1.0.0
 [PASS] 12 mcp-tools          /microservices/telegram/mcp/tools                    HTTP 200 (esperado 200) — herramientas=5

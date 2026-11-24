@@ -3,6 +3,7 @@
     "code": "RUTA_NO_ENCONTRADA",
     "message": "La ruta solicitada no existe en esta API.",
     "suggestion": "Revise /context/api_contracts.md o consulte GET /api/energy/constants.",
-    "details": []
+    "details": [],
+    "traceId": "tr_42168a04-9f12-46ed-94f4-26a2238ac30e"
   }
 }

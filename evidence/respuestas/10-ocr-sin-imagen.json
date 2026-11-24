@@ -4,6 +4,6 @@
     "message": "No recibimos la imagen de la etiqueta o factura.",
     "suggestion": "Envíe la imagen en el campo imagen con multipart/form-data.",
     "details": [],
-    "traceId": "tr_52ac911c-148a-4711-8752-cc3d34b7b617"
+    "traceId": "tr_d2a823d9-e171-4ffe-8fcf-3fd26cb684d4"
   }
 }

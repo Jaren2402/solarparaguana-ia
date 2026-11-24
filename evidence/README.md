@@ -42,10 +42,26 @@ También hay una colección de Postman importable en [`postman/SolarParaguana.po
 | 14 | Webhook Telegram | `POST /microservices/telegram/webhook` | 200 | `ok: true` |
 | 15 | Ruta inexistente | `GET /api/ruta-inexistente` | 404 | `RUTA_NO_ENCONTRADA` |
 
+## Verificación de las correcciones
+
+Además del smoke test, `scripts/verificar-correcciones.mjs` valida dos regresiones corregidas:
+
+1. `POST /api/solar/ocr-confirm` con `confirmado: false` → **422** `OCR_NO_CONFIRMADO`.
+2. Herramienta MCP `calcular` con `argumentos.equipos` → **200** con `resultado` y paneles calculados.
+
+Resultado local: **2/2 correctas** — ver [`verificacion-correcciones.json`](verificacion-correcciones.json).
+Para repetirla en producción:
+
+```powershell
+$env:BASE_URL='https://solarparaguana-ia-production.up.railway.app'
+node projects\backend\scripts\verificar-correcciones.mjs
+```
+
 ## Archivos
 
 - `smoke-test-result.txt` — resumen legible con fecha, base URL y resultado de cada caso.
 - `respuestas/01-constants.json` … `15-ruta-inexistente.json` — cuerpo completo de cada respuesta.
+- `verificacion-correcciones.json` — resultado de las 2 comprobaciones de regresión.
 
 ## Verificación en producción (Railway + MongoDB Atlas)
 

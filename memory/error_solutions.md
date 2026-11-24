@@ -52,3 +52,28 @@ Registro de errores y parches aplicados.
   `node --check` valida sintaxis, pero **no detecta** variables no definidas que
   solo se evalúan en tiempo de ejecución: por eso es necesario ejercitar también
   el camino con datos reales (subir una imagen, no solo omitirla).
+
+## 2026-11-24 — Auditoría previa a la entrega: confirmación OCR y herramienta MCP
+
+- **Síntoma 1:** `POST /api/solar/ocr-confirm` con `confirmado: false` devolvía
+  `200` y marcaba el borrador como `confirmado`, violando `api_contracts.md`
+  (exige `422`). El smoke test no lo detectaba porque omitía ese campo.
+- **Causa 1:** `confirmarOCR` validaba los campos numéricos pero nunca leía
+  `req.body.confirmado`.
+- **Solución 1:** rechazar explícitamente `confirmado === false` con
+  `422 OCR_NO_CONFIRMADO` antes de cambiar el estado del borrador. El smoke test
+  ahora envía `confirmado: true` y se añadió `verificar-correcciones.mjs`.
+- **Síntoma 2:** `POST /microservices/telegram/mcp/tools/calcular` devolvía
+  `resultado: null` y el texto de ayuda aunque recibiera `argumentos.equipos`.
+- **Causa 2:** la herramienta solo pasaba `args.texto` a `procesarSolicitud`.
+- **Solución 2:** delegar a `calcularDimensionamiento` cuando llegan `ocrId`,
+  `equipos` o `consumoMensualKWh`, y conservar el texto como último recurso.
+  El `inputSchema` de `calcular` ahora declara esos argumentos.
+- **Adicional:** `traceId` se añadió a los errores del fallback 404 y del
+  microservicio mediante `responderErrorLegible`, que antes solo estaba en el
+  controlador solar.
+- **Verificación:** local `15/15` en el smoke test y `2/2` en
+  `verificar-correcciones.mjs`. Evidencia en `evidence/`.
+- **Prevención:** cuando el contrato defina un campo de intención (como
+  `confirmado`), probar explícitamente el valor negativo; y verificar cada
+  herramienta MCP con los argumentos de su `inputSchema`, no solo con texto.
