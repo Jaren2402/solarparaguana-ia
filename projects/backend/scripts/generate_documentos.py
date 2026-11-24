@@ -652,7 +652,7 @@ DOCUMENTOS = [
                 ["README y manual", "Listo", "README.md"],
                 ["Documentacion API / Postman", "Listo", "postman/SolarParaguana.postman_collection.json"],
                 ["Evidencia de pruebas", "Listo", "evidence/smoke-test-result.txt"],
-                ["URL del backend desplegado", "En gestion", "Depende de cuenta de hosting y MongoDB en la nube"],
+                ["URL del backend desplegado", "Listo", "https://solarparaguana-ia-production.up.railway.app"],
             ]),
 
             ("h1", "5. Matriz de riesgos"),
