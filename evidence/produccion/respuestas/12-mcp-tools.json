@@ -38,7 +38,7 @@
     },
     {
       "nombre": "calcular",
-      "descripcion": "Dimensiona el sistema a partir de texto, equipos o consumo diario.",
+      "descripcion": "Dimensiona el sistema a partir de texto, equipos, OCR o consumo mensual.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -47,6 +47,12 @@
           },
           "equipos": {
             "type": "array"
+          },
+          "ocrId": {
+            "type": "string"
+          },
+          "consumoMensualKWh": {
+            "type": "number"
           },
           "cargaPicoKW": {
             "type": "number"

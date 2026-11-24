@@ -21,7 +21,7 @@
         "almacen": "Coro",
         "disponible": 120
       },
-      "updatedAt": "2026-11-23T01:45:25.809Z",
+      "updatedAt": "2026-11-24T12:52:51.339Z",
       "vigente": true,
       "voltajeNominalV": 41.5
     },
@@ -45,7 +45,7 @@
         "almacen": "Punto Fijo",
         "disponible": 86
       },
-      "updatedAt": "2026-11-23T01:45:25.809Z",
+      "updatedAt": "2026-11-24T12:52:51.339Z",
       "vigente": true,
       "voltajeNominalV": 41.5
     }

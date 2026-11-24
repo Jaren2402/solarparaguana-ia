@@ -113,24 +113,6 @@
       "vigente": true
     },
     {
-      "sku": "INV-MUST-5KW-PFJ",
-      "tipo": "inversor",
-      "modelo": "Must PV18-5048 5 kW senoidal pura",
-      "potenciaWp": null,
-      "capacidadKVA": 5.6,
-      "capacidadAh": null,
-      "stock": {
-        "almacen": "Punto Fijo",
-        "disponible": 7
-      },
-      "disponible": true,
-      "precio": {
-        "monto": 535,
-        "moneda": "USD"
-      },
-      "vigente": true
-    },
-    {
       "sku": "INV-GROWATT-5KW-CORO",
       "tipo": "inversor",
       "modelo": "Growatt SPF 5000 ES 5 kW senoidal pura",
@@ -144,6 +126,24 @@
       "disponible": true,
       "precio": {
         "monto": 610,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "INV-MUST-5KW-PFJ",
+      "tipo": "inversor",
+      "modelo": "Must PV18-5048 5 kW senoidal pura",
+      "potenciaWp": null,
+      "capacidadKVA": 5.6,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Punto Fijo",
+        "disponible": 7
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 535,
         "moneda": "USD"
       },
       "vigente": true
@@ -239,24 +239,6 @@
       "vigente": true
     },
     {
-      "sku": "ACC-MPPT60-CORO",
-      "tipo": "accesorio",
-      "modelo": "Epever Controlador MPPT 60 A",
-      "potenciaWp": null,
-      "capacidadKVA": null,
-      "capacidadAh": null,
-      "stock": {
-        "almacen": "Coro",
-        "disponible": 20
-      },
-      "disponible": true,
-      "precio": {
-        "monto": 180,
-        "moneda": "USD"
-      },
-      "vigente": true
-    },
-    {
       "sku": "ACC-ESTRUCTURA-CORO",
       "tipo": "accesorio",
       "modelo": "SolarParaguaná Estructura metálica para 4 paneles",
@@ -288,6 +270,24 @@
       "disponible": true,
       "precio": {
         "monto": 75,
+        "moneda": "USD"
+      },
+      "vigente": true
+    },
+    {
+      "sku": "ACC-MPPT60-CORO",
+      "tipo": "accesorio",
+      "modelo": "Epever Controlador MPPT 60 A",
+      "potenciaWp": null,
+      "capacidadKVA": null,
+      "capacidadAh": null,
+      "stock": {
+        "almacen": "Coro",
+        "disponible": 20
+      },
+      "disponible": true,
+      "precio": {
+        "monto": 180,
         "moneda": "USD"
       },
       "vigente": true

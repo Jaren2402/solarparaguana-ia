@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-24T12:53:09.035Z",
+  "base": "https://solarparaguana-ia-production.up.railway.app",
+  "resultado": "2/2",
+  "casos": [
+    {
+      "nombre": "ocr-confirm rechaza confirmado=false",
+      "estado": 422,
+      "esperado": 422,
+      "detalle": "code=OCR_NO_CONFIRMADO"
+    },
+    {
+      "nombre": "mcp calcular usa argumentos.equipos",
+      "estado": 200,
+      "esperado": 200,
+      "detalle": "paneles=2, kWh=3.6"
+    }
+  ]
+}

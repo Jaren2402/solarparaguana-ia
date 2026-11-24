@@ -75,7 +75,7 @@ Base: `https://solarparaguana-ia-production.up.railway.app`
 | `POST /api/solar/quote` | 201 — presupuesto **3865 USD**, 3 ítems |
 
 Detalle: [`produccion-verificacion.json`](produccion-verificacion.json).
-Además, el smoke test completo se ejecutó contra esta base con `BASE_URL=... node scripts/smoke-test.mjs`: **15/15 pruebas correctas**; ver [`produccion/smoke-test-result.txt`](produccion/smoke-test-result.txt) y [`produccion/respuestas/`](produccion/respuestas/).
+Además, el smoke test completo se ejecutó contra esta base con `BASE_URL=... node scripts/smoke-test.mjs`: **15/15 pruebas correctas**; ver [`produccion/smoke-test-result.txt`](produccion/smoke-test-result.txt) y [`produccion/respuestas/`](produccion/respuestas/). Las dos comprobaciones de regresión también pasaron en producción: **2/2**; ver [`produccion/verificacion-correcciones.json`](produccion/verificacion-correcciones.json).
 
 > El inventario se carga automáticamente al arrancar (`seedInventory({ disconnect: false })`),
 > de forma idempotente por `sku`. Así se confirmó también que Railway sí puede conectar
