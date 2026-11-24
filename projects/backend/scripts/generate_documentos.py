@@ -178,6 +178,7 @@ def corregir(texto: str) -> str:
         ("incrementalles", "incrementales"),
         ("confirmation", "confirmación"),
         ("Secreticos", "Secretos"),
+        ("ningun dato", "ningún dato"),
         ("no esta", "no está"),
     ]
     for mal, bien in sustituciones:
@@ -194,6 +195,24 @@ def corregir(texto: str) -> str:
     return texto
 
 
+# Las rutas de archivo y las URL no deben pasar por la normalizacion
+# ortografica: "investigacion" -> "investigación" romperia los enlaces.
+RUTAS_O_URLS = (
+    ".pdf", ".md", ".json", "http", "github.com",
+    "documentos/", "postman/", "evidence/", "context/", "memory/",
+)
+
+
+def parece_ruta(texto: str) -> bool:
+    valor = str(texto)
+    return any(marca in valor for marca in RUTAS_O_URLS)
+
+
+def corregir_celda(valor) -> str:
+    texto = str(valor)
+    return texto if parece_ruta(texto) else corregir(texto)
+
+
 # ---------------------------------------------------------------------------
 # Contenido
 # ---------------------------------------------------------------------------
@@ -206,7 +225,7 @@ DOCUMENTOS = [
         "bloques": [
             ("h1", "1. Resumen ejecutivo"),
             ("p", "SolarParaguana IA es una plataforma de diagnostico, dimensionamiento y cotizacion de soluciones fotovoltaicas para Coro y la Peninsula de Paraguana, estado Falcon, Venezuela. El sistema convierte datos reales de consumo -ingresados manualmente o extraidos de una factura mediante OCR- en una recomendacion tecnica auditable: consumo diario, numero de paneles, capacidad del inversor en kVA y banco de baterias, ademas de un presupuesto calculado con inventario disponible en Coro y Punto Fijo."),
-            ("p", "El proyecto se desarrolla por entregas incrementalles. Este documento resume la identidad, el problema, los objetivos, el publico, la solucion y el estado actual del primer avance, que corresponde al backend. El frontend web, la aplicacion movil y el despliegue remoto estan planificados para entregas posteriores."),
+            ("p", "El proyecto se desarrolla por entregas incrementalles. Este documento resume la identidad, el problema, los objetivos, el publico, la solucion y el estado actual del primer avance, que corresponde al backend. El backend ya se encuentra desplegado en Railway; quedan para entregas posteriores el frontend web y la aplicacion movil."),
 
             ("h1", "2. Identidad y alcance"),
             ("table", ["Campo", "Definicion"], [
@@ -294,7 +313,7 @@ DOCUMENTOS = [
             ("bullets", [
                 "Los borradores OCR y los calculos se guardan en memoria: se pierden al reiniciar el servidor.",
                 "El frontend aun no esta compilado; la raiz del servidor responde JSON de frontend no disponible.",
-                "El despliegue remoto queda para la fase de DevOps.",
+                "El backend ya se encuentra desplegado en Railway y verificado con MongoDB Atlas; la operacion continua queda para el siguiente avance.",
                 "La autenticacion JWT esta prevista en el contrato, pero no forma parte de este primer avance.",
             ]),
 
@@ -373,7 +392,7 @@ DOCUMENTOS = [
             ]),
 
             ("h1", "6. Hallazgos aplicados al prototipo"),
-            ("p", "El estudio se valido con un caso de prueba real. Los valores obtenidos coinciden con las formulas de la seccion 3."),
+            ("p", "El estudio se validó con un caso de prueba real. Los valores obtenidos coinciden con las formulas de la seccion 3."),
             ("table", ["Magnitud", "Valor obtenido", "Verificacion"], [
                 ["Consumo diario", "12,3 kWh", "Suma de tres equipos ponderada por horas"],
                 ["Generacion requerida", "15,375 kWh/dia", "12,3 / 0.80"],
@@ -612,7 +631,7 @@ DOCUMENTOS = [
             ]),
 
             ("h1", "10. Despliegue"),
-            ("p", "La plantilla ecosystem.config.cjs define una aplicacion llamada solarparaguana en modo fork, un sola instancia, puerto 18512 y logs en la carpeta logs. Antes de desplegar deben configurarse PORT, MONGO_URI y, si aplica, los tokens de Telegram en el entorno del servidor."),
+            ("p", "La plantilla ecosystem.config.cjs define una aplicacion llamada solarparaguana en modo fork, una sola instancia, puerto 18512 y logs en la carpeta logs. El backend ya se encuentra desplegado en Railway con PORT, MONGO_URI y los tokens de Telegram configurados como variables de entorno; la plantilla PM2 permanece disponible como respaldo."),
         ],
     },
     {
@@ -621,7 +640,7 @@ DOCUMENTOS = [
         "subtitulo": "Cronograma, entregables y matriz de riesgos de SolarParaguana IA",
         "bloques": [
             ("h1", "1. Proposito y enfoque"),
-            ("p", "La planificacion sigue un modelo incremental por sprints. Cada entrega deja un componente funcionando y verificable, de modo que el avance sea demostrable incluso antes de completar el producto final. El primer sprint se impacto en el backend; los siguientes incorporan interfaz web, integracion, movil y despliegue."),
+            ("p", "La planificacion sigue un modelo incremental por sprints. Cada entrega deja un componente funcionando y verificable, de modo que el avance sea demostrable incluso antes de completar el producto final. El primer sprint se impacto en el backend y su despliegue ya fue ejecutado; los siguientes incorporan interfaz web, integracion y movil."),
 
             ("h1", "2. Plan de sprints"),
             ("table", ["Sprint", "Objetivo", "Entregables principales", "Estado"], [
@@ -629,7 +648,7 @@ DOCUMENTOS = [
                 ["2", "Interfaz web", "SPA Angular, formularios y visualizacion de resultados", "Planificado"],
                 ["3", "Integracion y calidad", "Pruebas ampliadas, manejo de errores y pulido de flujos", "Parcialmente anticipado"],
                 ["4", "Aplicacion movil", "Cliente Kotlin nativo con MVVM y Retrofit", "Planificado"],
-                ["5", "Despliegue y operacion", "Publicacion, PM2, respaldos y actualizaciones APK", "Plantilla lista"],
+                ["5", "Despliegue y operacion", "Publicacion, PM2, respaldos y actualizaciones APK", "Backend publicado en Railway; pendientes respaldos y APK"],
             ]),
 
             ("h1", "3. Cronograma propuesto"),
@@ -638,7 +657,7 @@ DOCUMENTOS = [
                 ["2", "Backend: calculo e inventario", "Endpoints de calculo y stock"],
                 ["3", "Backend: OCR y cotizacion", "Flujo completo verificado"],
                 ["4", "MCP, evidencia y cierre", "Backend entregable y documentado"],
-                ["5 en adelante", "Frontend, movil y despliegue", "Siguientes avances"],
+                ["5 en adelante", "Frontend y movil", "Siguientes avances"],
             ]),
 
             ("h1", "4. Entregables de este avance"),
@@ -663,7 +682,7 @@ DOCUMENTOS = [
                 ["Sin stock local", "Media", "Medio", "Error 409 y sugerencia de revision"],
                 ["Cambios de Node en el hosting", "Media", "Alto", "Declarar version compatible y probar arranque"],
                 ["Secreticos versionados", "Baja", "Alto", ".gitignore y revision antes de cada commit"],
-                ["Retraso en el despliegue", "Media", "Medio", "Definir hosting y Atlas con anticipacion"],
+                ["Retraso en el despliegue", "Baja", "Bajo", "Cerrado: Railway y Atlas verificados el 23/11"],
             ]),
 
             ("h1", "6. Hitos de aceptacion"),
@@ -672,7 +691,7 @@ DOCUMENTOS = [
                 "Las 15 pruebas automatizadas devuelven el estado esperado.",
                 "El presupuesto de referencia es USD 3.865 con stock real.",
                 "El repositorio no contiene .env ni node_modules.",
-                "Los cinco documentos estan disponibles en PDF y Markdown.",
+                "Los cinco documentos se encuentran disponibles en PDF y Markdown.",
             ]),
 
             ("h1", "7. Recursos y supuestos"),
@@ -728,7 +747,7 @@ def a_markdown(doc: dict) -> str:
             lineas += ["| " + " | ".join(corregir(c) for c in cabeceras) + " |",
                        "| " + " | ".join(["---"] * len(cabeceras)) + " |"]
             for fila in filas:
-                celdas = [corregir(str(c)).replace("|", "\\|").replace("\n", " ") for c in fila]
+                celdas = [corregir_celda(c).replace("|", "\\|").replace("\n", " ") for c in fila]
                 lineas.append("| " + " | ".join(celdas) + " |")
             lineas.append("")
     return "\n".join(lineas).rstrip() + "\n"
@@ -794,6 +813,10 @@ def txt(valor: str) -> str:
     return html.escape(corregir(str(valor)), quote=False).replace("\n", "<br/>")
 
 
+def txt_celda(valor: str) -> str:
+    return html.escape(corregir_celda(valor), quote=False).replace("\n", "<br/>")
+
+
 def anchos(cabeceras, filas, disponible):
     maxlens = []
     for i, cabecera in enumerate(cabeceras):
@@ -811,9 +834,9 @@ def anchos(cabeceras, filas, disponible):
 
 def tabla(cabeceras, filas, est) -> Table:
     disponible = A4[0] - 4 * cm
-    datos = [[Paragraph(txt(c), est["celdahead"]) for c in cabeceras]]
+    datos = [[Paragraph(txt_celda(c), est["celdahead"]) for c in cabeceras]]
     for fila in filas:
-        datos.append([Paragraph(txt(c), est["celda"]) for c in fila])
+        datos.append([Paragraph(txt_celda(c), est["celda"]) for c in fila])
     t = Table(datos, colWidths=anchos(cabeceras, filas, disponible), repeatRows=1, hAlign="LEFT")
     estilo = [
         ("BACKGROUND", (0, 0), (-1, 0), NARANJA),

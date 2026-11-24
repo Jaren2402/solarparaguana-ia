@@ -120,4 +120,4 @@ Ambos bloques conviven con las claves originales de la respuesta, de modo que no
 
 # 10. Despliegue
 
-La plantilla ecosystem.config.cjs define una aplicación llamada solarparaguana en modo fork, un sola instancia, puerto 18512 y logs en la carpeta logs. Antes de desplegar deben configurarse PORT, MONGO_URI y, si aplica, los tokens de Telegram en el entorno del servidor.
+La plantilla ecosystem.config.cjs define una aplicación llamada solarparaguana en modo fork, una sola instancia, puerto 18512 y logs en la carpeta logs. El backend ya se encuentra desplegado en Railway con PORT, MONGO_URI y los tokens de Telegram configurados como variables de entorno; la plantilla PM2 permanece disponible como respaldo.

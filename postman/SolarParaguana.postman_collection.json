@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "SolarParaguaná IA — Backend",
-    "description": "Colección de pruebas del backend SolarParaguaná IA (Sprint 1). Importar en Postman. La variable baseUrl apunta al servidor local por defecto; cámbiala por la URL desplegada cuando exista.",
+    "description": "Colección de pruebas del backend SolarParaguaná IA (Sprint 1). Importar en Postman. La variable baseUrl apunta al servidor local por defecto; para probar producción cámbiala por https://solarparaguana-ia-production.up.railway.app.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [

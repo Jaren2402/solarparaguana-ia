@@ -76,5 +76,7 @@ Historial de decisiones de diseño.
   `.env.example`. Se agregó `npm run seed`. El URI por defecto del seeder se
   corregió a `solarparaguana_ia` para coincidir con el entorno real.
 - **PM2:** `ecosystem.config.cjs` usa `name: 'solarparaguana'`, puerto `18512`,
-  `fork`, 1 instancia y logs en `logs/`. El despliegue remoto (Sprint 5) sigue
-  diferido; esta entrega solo deja la plantilla lista.
+  `fork`, 1 instancia y logs en `logs/`. La plantilla se conserva como respaldo:
+  el despliegue de producción se realizó en Railway (raíz `projects/backend`),
+  con MongoDB Atlas y URL pública verificados el 23/11/2026. Railway inyecta
+  el puerto, por lo que no reemplaza a PM2 en esta entrega.

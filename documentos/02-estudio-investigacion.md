@@ -78,7 +78,7 @@ La investigación sobre lectura de facturas y etiquetas condujo a una decisión 
 
 # 6. Hallazgos aplicados al prototipo
 
-El estudio se válido con un caso de prueba real. Los valores obtenidos coinciden con las fórmulas de la sección 3.
+El estudio se validó con un caso de prueba real. Los valores obtenidos coinciden con las fórmulas de la sección 3.
 
 | Magnitud | Valor obtenido | Verificación |
 | --- | --- | --- |

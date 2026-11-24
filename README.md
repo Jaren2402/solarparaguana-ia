@@ -13,7 +13,7 @@ Incluye además un borrador de OCR con confirmación obligatoria y un conector M
 
 ## 1. Requisitos
 
-- Node.js 26 o superior (`node --version`).
+- Node.js 26 o superior para desarrollo (`node --version`); producción/Railway admite Node ≥20 según `engines` de `package.json`.
 - npm.
 - MongoDB local o una URI de MongoDB Atlas (opcional para calcular, necesaria para cotizar).
 - Git.
@@ -284,7 +284,7 @@ La plantilla `ecosystem.config.cjs` está lista para PM2:
 pm2 start ecosystem.config.cjs --env production
 ```
 
-Antes de desplegar, define `PORT`, `MONGO_URI` y, si aplica, los tokens de Telegram en el entorno del servidor. La plataforma debe poder instalar Node 20 o superior.
+Para un despliegue con PM2, define `PORT`, `MONGO_URI` y, si aplica, los tokens de Telegram en el entorno del servidor. La plataforma debe poder instalar Node 20 o superior.
 
 ### Despliegue actual (Railway)
 
